@@ -1270,3 +1270,8 @@ INSERT INTO withdrawal_reason (seq, reason)
 VALUES (withdrawal_reason_seq.NEXTVAL, '기타');
 
 COMMIT;
+
+ALTER TABLE delivery ADD (delay_hours number DEFAULT 0 NOT NULL);
+ALTER TABLE product ADD (thumbnail_url VARCHAR2(1000));   -- 지금 그 에러 해결
+CREATE TABLE holiday (holiday_date DATE PRIMARY KEY, name VARCHAR2(255));
+ALTER TABLE seller RENAME COLUMN delivery_seq TO delivery_company_seq;

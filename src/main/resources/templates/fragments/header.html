@@ -43,11 +43,11 @@
         <div class="max-w-screen-wide mx-auto px-4 py-5 flex items-center justify-between gap-10">
 
             <a th:href="@{/}" class="text-3xl font-black tracking-tighter flex items-center shrink-0">
-                <span class="text-slate-900">GOLD</span><span class="text-amber-500">MARKET</span>
+                <span class="text-slate-900">FORCE</span><span class="text-brand">BUY</span>
             </a>
 
             <div class="flex-1 max-w-2xl hidden md:block relative">
-                <form th:action="@{/products}" method="get" class="relative flex border-[3px] border-amber-500 bg-white z-40">
+                <form th:action="@{/products}" method="get" class="relative flex border-[3px] border-brand bg-white z-40">
                     <!-- 필터 및 카테고리 상태 보존용 hidden 필드 -->
                     <input type="hidden" name="categorySeq" th:if="${categorySeq != null}" th:value="${categorySeq}">
                     <input type="hidden" name="sort" th:if="${sort != null}" th:value="${sort}">
@@ -58,7 +58,7 @@
                     <input type="text" id="header-search-input" name="keyword" th:value="${keyword}" autocomplete="off" placeholder="프리미엄 엄선 상품, 가전, 신선식품 검색!"
                            class="w-full px-4 py-2 text-sm focus:outline-none text-gray-900 font-medium placeholder-gray-400"
                            onfocus="document.getElementById('recent-search-dropdown').classList.remove('hidden')" />
-                    <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-white px-6 flex items-center justify-center transition-colors shrink-0">
+                    <button type="submit" class="bg-brand hover:bg-brand text-white px-6 flex items-center justify-center transition-colors shrink-0">
                         <i data-lucide="search" class="w-5 h-5 stroke-[2.5]"></i>
                     </button>
                 </form>
@@ -66,13 +66,13 @@
                 <div id="recent-search-dropdown" class="hidden absolute left-0 right-0 top-full bg-white shadow-2xl border border-gray-200 py-3 px-4 z-30 space-y-2 mt-1 rounded-sm">
                     <div class="text-[11px] font-black text-gray-400 flex items-center justify-between pb-1.5 border-b border-gray-100">
                         <span>🕒 최근 검색어</span>
-                        <button type="button" class="hover:text-amber-500 hover:underline text-[10px]" onclick="clearRecentKeywords(event)">전체 삭제</button>
+                        <button type="button" class="hover:text-brand hover:underline text-[10px]" onclick="clearRecentKeywords(event)">전체 삭제</button>
                     </div>
                     <ul id="recent-search-list" class="space-y-1.5 text-xs text-gray-700 max-h-60 overflow-y-auto">
                         <li th:each="kw : ${recentKeywords}" 
                             th:if="${kw != keyword}"
                             class="flex items-center justify-between group">
-                            <a th:href="@{/products(keyword=${kw})}" class="hover:text-amber-600 truncate flex-1" th:text="${kw}">검색어</a>
+                            <a th:href="@{/products(keyword=${kw})}" class="hover:text-brand truncate flex-1" th:text="${kw}">검색어</a>
                             <button type="button" class="text-gray-300 hover:text-red-500 font-bold px-1 text-sm transition-colors"
                                     th:data-keyword="${kw}"
                                     onclick="deleteRecentKeyword(event, this.getAttribute('data-keyword'), this)">&times;</button>
@@ -88,45 +88,45 @@
                 <!-- 알림 벨 (로그인 시에만). 로직은 /js/notification.js -->
                 <div sec:authorize="isAuthenticated()" class="relative" id="notif-root">
                     <button type="button" id="notif-bell"
-                            class="flex flex-col items-center justify-center hover:text-amber-600 text-xs font-semibold relative">
+                            class="flex flex-col items-center justify-center hover:text-brand text-xs font-semibold relative">
                         <i data-lucide="bell" class="w-5 h-5 stroke-[1.5] mb-0.5"></i>
                         <span>알림</span>
                         <span id="notif-badge"
-                              class="hidden absolute -top-1 -right-2 bg-red-500 text-white text-[9px] font-bold min-w-4 h-4 px-1 rounded-full flex items-center justify-center">0</span>
+                              class="hidden absolute -top-1 -right-2 bg-brand text-white text-[9px] font-bold min-w-4 h-4 px-1 rounded-full flex items-center justify-center">0</span>
                     </button>
                     <div id="notif-dropdown"
                          class="hidden absolute right-0 top-full mt-2 w-80 bg-white shadow-2xl border border-gray-200 z-50 rounded-sm">
                         <div class="flex items-center justify-between px-4 py-2.5 border-b border-gray-100">
                             <span class="text-sm font-black text-gray-700">알림</span>
                             <button type="button" id="notif-read-all"
-                                    class="text-[11px] text-gray-400 hover:text-amber-500 hover:underline">모두 읽음</button>
+                                    class="text-[11px] text-gray-400 hover:text-brand hover:underline">모두 읽음</button>
                         </div>
                         <ul id="notif-list" class="max-h-96 overflow-y-auto divide-y divide-gray-50 text-xs text-left">
                             <li class="px-4 py-6 text-center text-gray-400">불러오는 중...</li>
                         </ul>
                     </div>
                 </div>
-                <a th:href="@{/mypage/orders}" class="flex flex-col items-center justify-center hover:text-amber-600 text-xs font-semibold">
+                <a th:href="@{/mypage/orders}" class="flex flex-col items-center justify-center hover:text-brand text-xs font-semibold">
                     <i data-lucide="user" class="w-5 h-5 stroke-[1.5] mb-0.5"></i>
-                    <span>마이골드</span>
+                    <span>마이페이지</span>
                 </a>
-                <a th:href="@{/cart}" class="flex flex-col items-center justify-center hover:text-amber-600 text-xs font-semibold relative">
+                <a th:href="@{/cart}" class="flex flex-col items-center justify-center hover:text-brand text-xs font-semibold relative">
                     <i data-lucide="shopping-cart" class="w-5 h-5 stroke-[1.5] mb-0.5"></i>
                     <span>장바구니</span>
                     <span th:if="${cartCount != null and cartCount > 0}" th:text="${cartCount}"
-                          class="absolute -top-1 -right-2 bg-amber-600 text-white text-[9px] font-bold w-4 h-4 flex items-center justify-center">0</span>
+                          class="absolute -top-1 -right-2 bg-brand text-white text-[9px] font-bold w-4 h-4 flex items-center justify-center">0</span>
                 </a>
             </div>
         </div>
 
         <!-- 카테고리 네비 -->
-        <div class="bg-slate-900 text-white relative"> 
+        <div class="bg-white text-gray-700 border-b border-gray-200 relative">
             <div class="max-w-screen-wide mx-auto px-4 h-10 flex items-center text-sm font-bold relative">
                 
                 <!-- 카테고리 드롭다운 컨테이너 -->
                 <div class="h-full relative">
                     <button id="category-btn" type="button" onclick="document.getElementById('category-dropdown').classList.toggle('hidden')" 
-                            class="bg-slate-800 h-full px-6 flex items-center gap-2 hover:bg-slate-700 transition-colors text-amber-400 focus:outline-none">
+                            class="bg-brand h-full px-6 flex items-center gap-2 hover:bg-brand-dark transition-colors text-white focus:outline-none">
                         <i data-lucide="menu" class="w-4 h-4"></i> 카테고리
                     </button>
                     <!-- Dropdown Megamenu (Coupang-style cascading) -->
@@ -135,7 +135,7 @@
                         <div class="w-[220px] bg-gray-50 border-r border-gray-200 overflow-y-auto py-2">
                             <ul class="space-y-0.5">
                                 <li th:each="cat0 : ${globalCategories}"
-                                    class="category-dep0-item px-4 py-3 hover:bg-white hover:text-amber-600 cursor-pointer flex items-center justify-between font-bold text-sm text-gray-700 border-l-4 border-transparent hover:border-amber-500"
+                                    class="category-dep0-item px-4 py-3 hover:bg-white hover:text-brand cursor-pointer flex items-center justify-between font-bold text-sm text-gray-700 border-l-4 border-transparent hover:border-brand"
                                     th:data-id="${cat0.seq}">
                                     <span th:text="${cat0.categoryName}">대분류</span>
                                     <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
@@ -149,7 +149,7 @@
                                  th:id="'dep1-list-' + ${cat0.seq}"
                                  class="dep1-list-container hidden space-y-0.5">
                                 <div th:each="cat1 : ${cat0.children}"
-                                     class="category-dep1-item px-4 py-2.5 hover:bg-gray-50 hover:text-amber-600 cursor-pointer flex items-center justify-between font-bold text-xs text-gray-600 border-l-4 border-transparent hover:border-amber-500"
+                                     class="category-dep1-item px-4 py-2.5 hover:bg-gray-50 hover:text-brand cursor-pointer flex items-center justify-between font-bold text-xs text-gray-600 border-l-4 border-transparent hover:border-brand"
                                      th:data-id="${cat1.seq}"
                                      th:data-parent-id="${cat0.seq}">
                                     <span th:text="${cat1.categoryName}">중분류</span>
@@ -166,7 +166,7 @@
                                      class="dep2-list-container hidden space-y-0.5">
                                     <a th:each="cat2 : ${cat1.children}"
                                        th:href="@{/products(categorySeq=${cat2.seq})}"
-                                       class="block px-6 py-2 text-xs text-gray-600 hover:bg-gray-50 hover:text-amber-600 hover:font-bold font-medium"
+                                       class="block px-6 py-2 text-xs text-gray-600 hover:bg-gray-50 hover:text-brand hover:font-bold font-medium"
                                        th:text="${cat2.categoryName}">
                                         소분류
                                     </a>
@@ -176,13 +176,13 @@
                     </div>
                 </div>
 
-                <div class="flex items-center space-x-7 ml-6 text-xs font-semibold text-gray-300">
-                    <a th:href="@{/products}" class="hover:text-amber-400">쇼핑몰</a>
-                    <a th:href="@{/group-buys}" class="text-amber-400 flex items-center gap-1">
-                        <i data-lucide="gem" class="w-3.5 h-3.5 fill-amber-400"></i> 공동구매
+                <div class="flex items-center space-x-7 ml-6 text-[15px] font-semibold text-gray-600">
+                    <a th:href="@{/products}" class="hover:text-brand">전체상품</a>
+                    <a th:href="@{/products(showHotDealsOnly=true)}" class="hover:text-brand">핫딜</a>
+                    <a th:href="@{/group-buys}" class="text-brand flex items-center gap-1">
+                        <i data-lucide="zap" class="w-4 h-4 fill-brand"></i> 포스딜
                     </a>
-                    <a th:href="@{/products(showHotDealsOnly=true)}" class="hover:text-amber-400">핫딜 특가</a>
-                    <a th:href="@{/group-buys/scheduled}" class="hover:text-amber-400">공구 예정</a>
+                    <a th:href="@{/group-buys/scheduled}" class="hover:text-brand">공구예정</a>
                 </div>
             </div>
         </div>
@@ -196,8 +196,8 @@
                 const dep1Panel = document.getElementById('category-dep1-panel');
                 const dep2Panel = document.getElementById('category-dep2-panel');
                 
-                const activeDep0Classes = ['bg-white', 'text-amber-600', 'border-amber-500'];
-                const activeDep1Classes = ['bg-gray-50', 'text-amber-600', 'border-amber-500'];
+                const activeDep0Classes = ['bg-white', 'text-brand', 'border-brand'];
+                const activeDep1Classes = ['bg-gray-50', 'text-brand', 'border-brand'];
                 
                 function activateDep0(item) {
                     // Reset all dep0 items

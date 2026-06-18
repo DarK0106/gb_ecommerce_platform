@@ -12,20 +12,32 @@
 <head th:fragment="head(title)">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${title} ?: 'Gold Market'">Gold Market</title>
+    <title th:text="${title} ?: 'Force Buy'">Force Buy</title>
+    <link rel="stylesheet" as="style" crossorigin
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     maxWidth: { 'screen-wide': '1400px' },
-                    colors: { brand: { DEFAULT: '#f59e0b' } } // amber-500 = 골드 포인트
+                    fontFamily: {
+                        sans: ['Pretendard', 'system-ui', '-apple-system', 'sans-serif']
+                    },
+                    colors: {
+                        // Force Buy 포인트 컬러 — 절제된 레드(타이머·할인·CTA에만 사용)
+                        brand: {
+                            DEFAULT: '#E8362B',
+                            dark:    '#C42B22',
+                            light:   '#FDECEA'
+                        }
+                    }
                 }
             }
         };
     </script>
     <style>
-        html { overflow-y: scroll; }
+        html { overflow-y: scroll; font-family: 'Pretendard', system-ui, -apple-system, sans-serif; }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/lucide@0.400.0/dist/umd/lucide.min.js"></script>
 </head>
