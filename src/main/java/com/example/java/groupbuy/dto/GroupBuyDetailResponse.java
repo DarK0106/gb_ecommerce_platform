@@ -35,8 +35,8 @@ public class GroupBuyDetailResponse {
 
     private Integer minCount;
     private Integer maxCount;
-    private Integer currentCount;   // 집계값: 현재 정규 참여 인원 (PARTICIPATING 수)
-    private Integer progress;       // 계산값: currentCount / minCount * 100 (최대 100%)
+    private Integer currentCount;   // 집계값: 현재 정규 참여 인원 (PARTICIPATING 수, 결제완료 기준)
+    private Integer progress;       // 계산값: currentCount / maxCount(정원) * 100 (최대 100%)
 
     private List<GroupBuyOptionView> options;
 }

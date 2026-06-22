@@ -753,7 +753,7 @@ public class GroupBuyService {
                 .minCount(g.getMinCount())
                 .maxCount(g.getMaxCount())
                 .currentCount(currentCount)
-                .progress(progress(currentCount, g.getMinCount()))
+                .progress(progress(currentCount, g.getMaxCount()))
                 .options(options)
                 .build();
     }
@@ -774,7 +774,7 @@ public class GroupBuyService {
                 .remainText(remainText(remain))
                 .minCount(g.getMinCount())
                 .currentCount(currentCount)
-                .progress(progress(currentCount, g.getMinCount()))
+                .progress(progress(currentCount, g.getMaxCount()))
                 .build();
     }
 
@@ -784,12 +784,16 @@ public class GroupBuyService {
                 groupBuySeq, ParticipationStatus.PARTICIPATING);
     }
 
-    /** 진행률(%) = 현재 참여 인원 / 최소 성사 인원 * 100. 최소 인원이 0/누락이면 0, 100% 초과는 100으로 고정. */
-    private int progress(int currentCount, Integer minCount) {
-        if (minCount == null || minCount <= 0) {
+    /**
+     * 진행률(%) = 현재 결제완료 참여 인원(PARTICIPATING) / 정원(maxCount = 옵션별 발주수량 합) * 100.
+     * 정원이 0/누락이면 0, 100% 초과는 100으로 고정.
+     * 분모는 '최소 성사 인원(minCount)'이 아니라 '정원(maxCount)'이다 — 바가 정원 대비 얼마나 찼는지 보여준다.
+     */
+    private int progress(int currentCount, Integer maxCount) {
+        if (maxCount == null || maxCount <= 0) {
             return 0;
         }
-        int p = (int) Math.round(currentCount * 100.0 / minCount);
+        int p = (int) Math.round(currentCount * 100.0 / maxCount);
         return Math.min(p, 100);
     }
 

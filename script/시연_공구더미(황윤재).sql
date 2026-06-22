@@ -286,3 +286,5 @@ SELECT gb.seq AS gb_seq, p.product_name, gb.status, gb.min_count, gb.max_count,
 FROM group_buy gb JOIN product p ON p.seq = gb.product_seq
 WHERE p.product_name LIKE '[시연]%'
 ORDER BY gb.seq;
+
+select * from Member;

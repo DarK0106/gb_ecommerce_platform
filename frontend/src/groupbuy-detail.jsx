@@ -132,12 +132,9 @@ function PurchasePanel({ id, data, toss }) {
         </p>
       </div>
 
-      {/* 공구 진행도 바 */}
+      {/* 공구 진행도 바 (정원 대비 참여율) — 인원 수 대신 % 문구로 통일 */}
       <div className="mt-5">
-        <div className="flex justify-between text-xs font-bold mb-1">
-          <span className="text-amber-600">{data.currentCount}명 참여</span>
-          <span className="text-gray-400">목표 {data.minCount}명</span>
-        </div>
+        <p className="text-gray-900 font-extrabold text-lg mb-1">지금 {data.progress}% 참여중!</p>
         <div className="w-full h-3 bg-gray-100 overflow-hidden">
           {/* style={{ width: ... }} = 진행률 %를 막대 너비로 */}
           <div className="h-full bg-amber-500" style={{ width: `${data.progress}%` }} />
@@ -188,10 +185,18 @@ function PurchasePanel({ id, data, toss }) {
  */
 function App({ id, toss }) {
   const [data, setData] = useState(null);
+  // 처음 1번 fetch 후 5초마다 재조회 → 다른 사용자의 참여/취소가 참여 인원·진행도에 반영된다(라이브 갱신).
+  // PurchasePanel의 마감 카운트다운(remain)은 자체 타이머라 재조회의 영향을 받지 않는다.
   useEffect(() => {
-    fetch(`/api/group-buys/${id}`)
-      .then((r) => r.json())
-      .then(setData);
+    let active = true;
+    const load = () =>
+      fetch(`/api/group-buys/${id}`)
+        .then((r) => r.json())
+        .then((d) => { if (active) setData(d); })
+        .catch(() => { /* 일시적 오류는 무시, 다음 주기에 재시도 */ });
+    load();
+    const timer = setInterval(load, 5000);
+    return () => { active = false; clearInterval(timer); };
   }, [id]);
   if (!data) return <p className="text-gray-400">불러오는 중…</p>;
   return <PurchasePanel id={id} data={data} toss={toss} />;

@@ -28,7 +28,6 @@ public class GroupBuySummaryResponse {
     private String remainText;      // 계산값: remainSeconds를 "N일 N시간" 식으로 표기 (화면용)
     private Integer minCount;
 
-    // participation 집계 구현 전까지 임시 0 (현재 참여 인원 / 진행률 %)
-    private Integer currentCount;
-    private Integer progress;
+    private Integer currentCount;   // 집계값: 현재 정규 참여 인원 (PARTICIPATING 수, 결제완료 기준)
+    private Integer progress;       // 계산값: currentCount / maxCount(정원) * 100 (최대 100%)
 }

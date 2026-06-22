@@ -104,19 +104,13 @@ function l({ id: e, data: t, toss: n }) {
 		}),
 		/* @__PURE__ */ (0, o.jsxs)("div", {
 			className: "mt-5",
-			children: [/* @__PURE__ */ (0, o.jsxs)("div", {
-				className: "flex justify-between text-xs font-bold mb-1",
-				children: [/* @__PURE__ */ (0, o.jsxs)("span", {
-					className: "text-amber-600",
-					children: [t.currentCount, "명 참여"]
-				}), /* @__PURE__ */ (0, o.jsxs)("span", {
-					className: "text-gray-400",
-					children: [
-						"목표 ",
-						t.minCount,
-						"명"
-					]
-				})]
+			children: [/* @__PURE__ */ (0, o.jsxs)("p", {
+				className: "text-gray-900 font-extrabold text-lg mb-1",
+				children: [
+					"지금 ",
+					t.progress,
+					"% 참여중!"
+				]
 			}), /* @__PURE__ */ (0, o.jsx)("div", {
 				className: "w-full h-3 bg-gray-100 overflow-hidden",
 				children: /* @__PURE__ */ (0, o.jsx)("div", {
@@ -165,7 +159,14 @@ function l({ id: e, data: t, toss: n }) {
 function u({ id: e, toss: t }) {
 	let [n, r] = (0, i.useState)(null);
 	return (0, i.useEffect)(() => {
-		fetch(`/api/group-buys/${e}`).then((e) => e.json()).then(r);
+		let t = !0, n = () => fetch(`/api/group-buys/${e}`).then((e) => e.json()).then((e) => {
+			t && r(e);
+		}).catch(() => {});
+		n();
+		let i = setInterval(n, 5e3);
+		return () => {
+			t = !1, clearInterval(i);
+		};
 	}, [e]), n ? /* @__PURE__ */ (0, o.jsx)(l, {
 		id: e,
 		data: n,

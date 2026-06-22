@@ -48,12 +48,9 @@
                 </p>
             </div>
 
-            <!-- 공구 진행도 -->
+            <!-- 공구 진행도 (정원 대비 참여율) -->
             <div class="mt-5">
-                <div class="flex justify-between text-xs font-bold mb-1">
-                    <span class="text-gray-700" th:text="*{currentCount} + '명 참여'">78명 참여</span>
-                    <span class="text-gray-400" th:text="'목표 ' + *{minCount} + '명'">목표 100명</span>
-                </div>
+                <p class="text-gray-900 font-extrabold text-lg mb-1" th:text="'지금 ' + *{progress} + '% 참여중!'">지금 56% 참여중!</p>
                 <div class="w-full h-3 bg-gray-100 overflow-hidden">
                     <div class="h-full bg-brand" th:style="'width:' + *{progress} + '%'"></div>
                 </div>
